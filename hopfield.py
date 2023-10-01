@@ -33,11 +33,15 @@ network = hopfieldNet(8)
 network.learn(pattern)
     
 # Testowanie sieci z danymi zakłóconymi
-testData = np.array([-1, -1, 1, -1, 1, -1, 1, -1])
-result = network.test(testData)
+testData1 = np.array([-1, -1, 1, -1, 1, -1, 1, -1]) #jeden błąd w stosunku do wzorca
+testData2 = np.array([1, -1, -1, -1, 1, -1, 1, 1]) #dwa błędy w stodunku do wzorca
+result1 = network.test(testData1)
+result2 = network.test(testData2)
 
 
 print("Macierz wag:")
 print(network.weights)    
-print("Odzyskany wzorzec po testowaniu:")
-print(result)
+print("Odzyskany wzorzec po pierwszym teście:")
+print(result1)
+print("Odzyskany wzorzec po drugim teście:")
+print(result2)
