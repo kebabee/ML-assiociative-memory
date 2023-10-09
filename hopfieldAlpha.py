@@ -1,3 +1,7 @@
+"""
+Pierwsza implementacja prostej sieci z jednym wzorcem, zawartośc nie jest bezpośrednio wykorzystywana w innych plikach.
+Działanie lepiej wytłumaczone w hopfieldHeader.
+"""
 import numpy as np
 import random
 
