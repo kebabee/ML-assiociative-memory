@@ -12,6 +12,8 @@ Metody plotPattern i plotWeghts generują pliki graficzne przedstawiające wzorc
 import matplotlib.pyplot as plt
 import tensorflow as tf
 import numpy as np
+import random
+
 class hopfieldNet:
     def __init__(self, numOfNeurons): #konstruktor z liczbą neuronów
         self.numOfNeurons = numOfNeurons
@@ -19,7 +21,7 @@ class hopfieldNet:
         self.patterns = [] #wektor z wzorcami
     
     def learn(self, patterns):
-        self.patterns = patterns  #lista wzorców trafia do atrybutu patterns
+        self.patterns = patterns  #macierz wzorców trafia do atrybutu patterns
         num_patterns = len(patterns)    
         for i in range(self.numOfNeurons):
             for j in range(self.numOfNeurons):
@@ -34,19 +36,24 @@ class hopfieldNet:
             #modyfikacja synchroniczna
             newData = np.dot(self.weights, data) #obliczanie aktywacji każdego neuronu za pomocą iloczynu macierzy
             newData = np.where(newData >= 0, 1, -1) #aktualizacja stanu zgodnie z funkcją aktywacji
+            #jeśli stan sieci nie ulega zmianie to kończymy działanie
+            if (np.array_equal(data,newData)):
+                print(f'Zakończono po {i} iteracjach (stabilizacja sieci)')
+                return newData
+            #jeżeli dane są identyczne jak wzorce (albo przeciwności) to kończymy działanie
+            #for pattern in self.patterns:
+                #if np.array_equal(data, pattern) or np.array_equal(data, -pattern):
+                    #print(f'Zakończono po {i} iteracjach')
+                    #return data
             data = newData #nadpisywanie danych
-            #jeżeli dane są identyczne jak wzorce (albo ich przeciwności) to kończymy działanie
-            for pattern in self.patterns:
-                if np.array_equal(data, pattern) or np.array_equal(data, -pattern):
-                    print(i+1,data) #testowo funkcja drukuje liczbę iteracji i stan danych
-                    return data
-        print(i+1,data)
+        print(f'Zakończono po {i} iteracjach (przekroczenie zakresu)')
         return data
 
     def plotWeights(self, title):
         normWeights = (self.weights + 1) / 2 #normalizacja do zakresu [0,1]
         plt.imshow(normWeights)
         plt.savefig(title)
+        #plt.show()
 
     def plotPatterns(self, imgSize, filename):
         for i in range(len(self.patterns)):
@@ -54,4 +61,14 @@ class hopfieldNet:
             plt.imshow(pattern)
             name = filename+f'{i}.png'
             plt.savefig(name)
+            #plot.show()
             plt.close()
+
+def noise(data, changes=5):
+    tempData = data.copy()
+    randomIndexes = random.sample(range(len(data)), changes)
+
+    for index in randomIndexes:
+        tempData[index] = -tempData[index]
+
+    return tempData
