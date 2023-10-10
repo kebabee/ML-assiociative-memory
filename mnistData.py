@@ -1,42 +1,12 @@
 """
-Dwa większe testy sieci Hopfielda z wieloma wzorcami.
-Pierwszy operuje na losowych wzorcach i losowych danych.
-  Generalnie w większości prób sieć osiąga wzorzec po 1, 2 max 3 iteracjach.
-  Zdarzają się pojedyncze przypadki gdy sieć wcale nie osiąga stabilności po 100 iteracjach.
-Drugi test operuje na danych MNIST z odręcznie pisanymi cyframi.
-  Dane są importowane z biblioteki tensorflow.
-  Sieć mimo działania na 784 neuronach wysypuje się już przy trzech wzorcach, nie jest w stanie rozpoznać nawet oryginalnych danych.
+Dane mnist są importowane z biblioteki tensorflow.
+Sieć mimo działania na 784 neuronach wysypuje się już przy trzech wzorcach, nie jest w stanie rozpoznać nawet oryginalnych danych.
 """
 import matplotlib.pyplot as plt
 import tensorflow as tf
 import numpy as np
 import hopfieldHeader
 import random
-
-### Testy z danymi losowymi ###
-randPattern1 = np.random.choice([-1,1], size=144)
-randPattern2 = np.random.choice([-1,1], size=144)
-randPattern3 = np.random.choice([-1,1], size=144)
-randPatterns = np.vstack((randPattern1, randPattern2, randPattern3))
-randNet = hopfieldHeader.hopfieldNet(144)
-randNet.learn(randPatterns)
-randNet.plotWeights("randomWeights.png")
-randNet.plotPatterns(12,"randomPattern")
-
-randTestData1 = np.random.choice([-1,1], size=144)
-plt.imshow(randTestData1.reshape(12,12))
-plt.savefig("randTestData1.png")
-randTestData2 = np.random.choice([-1,1], size=144)
-plt.imshow(randTestData2.reshape(12,12))
-plt.savefig("randTestData2.png")
-
-result = randNet.test(randTestData1,100)
-plt.imshow(result.reshape(12,12))
-plt.savefig("randResult1.png")
-result = randNet.test(randTestData2,100)
-plt.imshow(result.reshape(12,12))
-plt.savefig("randResult2.png")
-###
 
 ### Import danych MNIST ###
 mnist = tf.keras.datasets.mnist
