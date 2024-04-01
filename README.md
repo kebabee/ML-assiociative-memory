@@ -1,7 +1,7 @@
 # Machine Learning Associative Memory
 
-Archiwum kodu, wykorzystanego w ramach pracy licencjackiej "Realizacja modeli pamięci skoharzeniowej przy pomocy sieci neuronowych"
-Celem pracy jest porównanie trzech modeli pamięci skojarzeniwoej opartych o minimalizacje energii opisującej sztuczną sieć neuronową:
-  1. Klasyczna siec Hopfielda
-  2. Gesta pamięć asocjacyjna
-  3. Ciagła sieć Hopfielda (HopfieldLayer)
+Code used in "Neural network based associative memory"
+Main goal of the text is to compare three associative memory models beased on minimizing neural networks' energy function:
+  1. Classic Hopfield network
+  2. Dense associative memory
+  3. Modern Hopfield network (HopfieldLayer)
