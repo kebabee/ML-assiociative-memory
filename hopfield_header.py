@@ -231,7 +231,7 @@ class hopfield_net:
         XT = np.transpose(self.patterns)
 
         # Subtracting the maximum value to avoid overflow
-        softmax_input = beta * data @ XT - np.max(beta * data @ XT)
+        softmax_input = beta * (data @ XT) - np.max(beta * data @ XT)
 
         # Calculate softmax function with numerical stability
         exp_values = np.exp(softmax_input)
